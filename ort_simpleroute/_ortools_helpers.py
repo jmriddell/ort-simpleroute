@@ -72,7 +72,7 @@ def _argument_count(callback):
     return len(sig.parameters)
 
 
-class _CallbackTracker:
+class _CallbackIndexTracker:
     def __init__(self):
         self._callbacks_and_indexes = dict()
 
@@ -125,7 +125,7 @@ class ConvenientModel:
             num_nodes, num_vehicles, depot
         )
         self.model: Model = pywrapcp.RoutingModel(self.manager)
-        self._callback_tracker = _CallbackTracker()
+        self._callback_tracker = _CallbackIndexTracker()
         
         self._deliveries_enabled = False
 
