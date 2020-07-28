@@ -7,6 +7,7 @@ from ._typing import (
     Model,
     Solution,
     Distance,
+    Demand,
     Node,
     Index,
     NDistanceCallback,
@@ -23,7 +24,10 @@ from ortools.constraint_solver import pywrapcp
 Manager = pywrapcp.RoutingIndexManager
 Model = pywrapcp.RoutingModel
 Solution = Model.SolveWithParameters
-Distance = Union[float, int]
+
+_Magnitude = Union[float, int]
+Distance = _Magnitude
+Demand = _Magnitude
 
 Node = int
 Index = int

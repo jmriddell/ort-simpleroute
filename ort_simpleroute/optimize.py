@@ -14,7 +14,7 @@ def optimize_route(
 
     rmod.set_global_arc_cost(distance_callback)
 
-    search_parameters = hlp.make_search_parameters()
+    search_parameters = hlp.make_search_parameters('GLOBAL_CHEAPEST_ARC')
 
     solution: Solution = rmod.model.SolveWithParameters(search_parameters)
 
