@@ -190,59 +190,6 @@ class ConvenientModel:
 
         self._deliveries_enabled = False
 
-    def _register_transit_callback(self, distance_callback: NDistanceCallback) -> int:
-        """
-        Register a callback, assign an internal index to it, and return its index.
-
-        The internal index is returned in order to later tell the model how to use the
-        callback, which now will be referenced by it's index. That way it will be
-        possible to use the same callback function for multiple purposes like for more
-        than one vehicle but not all.
-        """
-        index_distance_callback: IDistanceCallback = node2index_distance_callback(
-            self.manager, distance_callback
-        )
-        transit_callback_index = self.model.RegisterTransitCallback(
-            index_distance_callback
-        )
-        return transit_callback_index
-
-    def _register_unary_callback(self, demand_callback):
-        """
-        Register a callback, assign an internal index to it, and return its index.
-
-        Same as register_transit_callback but the callback thakes just one argument
-        and returns a value associated to a node instead of a path.
-        """
-        index_distance_callback = node2index_demand_callback(
-            self.manager, demand_callback
-        )
-        unary_callback_index = self.model.RegisterUnaryTransitCallback(
-            index_distance_callback
-        )
-        return unary_callback_index
-
-    def _register_callback(self, callback):
-        if self._callback_index_tracker.is_present(callback):
-            raise ValueError("Callback already present.")
-        argument_count = _argument_count(callback)
-        if argument_count == 1:
-            callback_index = self._register_unary_callback(callback)
-        elif argument_count == 2:
-            callback_index = self._register_transit_callback(callback)
-        else:
-            raise ValueError("Callback needs to have 1 or 2 arguments.")
-        self._callback_index_tracker.add_callback(callback, callback_index)
-
-    def callback_to_index(self, callback):
-        """Get index of callback and register if not already present."""
-        index = self._callback_index_tracker.get_index(callback)
-        if index is None:
-            self._register_callback(callback)
-            index = self._callback_index_tracker.get_index(callback)
-            assert index is not None
-        return index
-
     def set_global_arc_cost(self, distance_callback):
         assert _argument_count(distance_callback) == 2
         transit_callback_index = self._callback_manager.callback_to_index(
