@@ -15,6 +15,7 @@ from ._typing import (
     SearchParameters,
 )
 from . import fss_enum as fss
+from enum import Enum
 
 
 # Search Parameters
@@ -112,6 +113,34 @@ class _CallbackIndexTracker:
         return callback_or_index in self._callbacks_and_indexes
 
 
+class CallbackTypes(Enum):
+    ANY = 0
+    UNARY = 1
+    TRANSIT = 2
+
+
+def _check_callback(callback, callback_type=CallbackTypes.ANY):
+    """Raise exception if invalid callback, return True if matches type else False."""
+    if not _is_callback(callback):
+        raise TypeError("callback argument not callable.")
+    if callback_type not in CallbackTypes:
+        raise ValueError("Wrong callback_type provided.")
+
+    arg_count = _argument_count(callback)
+    is_unary = arg_count == 1
+    is_transit = arg_count == 2
+
+    if not (is_transit or is_unary):
+        raise ValueError("Wrong callback ammount of arguments.")
+    if callback_type is CallbackTypes.ANY:
+        return True
+    if is_unary and callback_type is CallbackTypes.UNARY:
+        return True
+    if is_transit and callback_type is CallbackTypes.TRANSIT:
+        return True
+    return False
+
+
 class _CallbackManager:
     def __init__(self, model, manager):
         self.manager = manager
@@ -162,8 +191,10 @@ class _CallbackManager:
             raise ValueError("Callback needs to have 1 or 2 arguments.")
         self._callback_index_tracker.add_callback(callback, callback_index)
 
-    def callback_to_index(self, callback):
+    def callback_to_index(self, callback, require_type=CallbackTypes.ANY):
         """Get index of callback and register if not already present."""
+        if not _check_callback(callback, callback_type=require_type):
+            raise ValueError("Required callback type doesn't match")
         index = self._callback_index_tracker.get_index(callback)
         if index is None:
             self._register_callback(callback)
@@ -191,16 +222,16 @@ class ConvenientModel:
         self._deliveries_enabled = False
 
     def set_global_arc_cost(self, distance_callback):
-        assert _argument_count(distance_callback) == 2
         transit_callback_index = self._callback_manager.callback_to_index(
-            distance_callback
+            distance_callback,
+            require_type=CallbackTypes.TRANSIT
         )
         self.model.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
     def set_vehicle_arc_cost(self, distance_callback, vehicle_num: int):
-        assert _argument_count(distance_callback) == 2
         transit_callback_index = self._callback_manager.callback_to_index(
-            distance_callback
+            distance_callback,
+            require_type=CallbackTypes.TRANSIT
         )
         self.model.SetArcCostEvaluatorOfVehicle(transit_callback_index, vehicle_num)
 
