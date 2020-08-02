@@ -1,10 +1,26 @@
+# Copyright 2010-2018 Google LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# [START program]
 """Simple Pickup Delivery Problem (PDP)."""
 
+# [START import]
 from __future__ import print_function
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
+# [END import]
 
 
+# [START data_model]
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
@@ -78,6 +94,7 @@ def create_data_model():
             536, 194, 798, 0
         ],
     ]
+    # [START pickups_deliveries]
     data['pickups_deliveries'] = [
         [1, 6],
         [2, 10],
@@ -88,11 +105,14 @@ def create_data_model():
         [13, 12],
         [16, 14],
     ]
+    # [END pickups_deliveries]
     data['num_vehicles'] = 4
     data['depot'] = 0
     return data
+    # [END data_model]
 
 
+# [START solution_printer]
 def print_solution(data, manager, routing, solution):
     """Prints solution on console."""
     total_distance = 0
@@ -111,22 +131,30 @@ def print_solution(data, manager, routing, solution):
         print(plan_output)
         total_distance += route_distance
     print('Total Distance of all routes: {}m'.format(total_distance))
+    # [END solution_printer]
 
 
 def main():
     """Entry point of the program."""
     # Instantiate the data problem.
+    # [START data]
     data = create_data_model()
+    # [END data]
 
     # Create the routing index manager.
+    # [START index_manager]
     manager = pywrapcp.RoutingIndexManager(len(data['distance_matrix']),
                                            data['num_vehicles'], data['depot'])
+    # [END index_manager]
 
     # Create Routing Model.
+    # [START routing_model]
     routing = pywrapcp.RoutingModel(manager)
 
+    # [END routing_model]
 
     # Define cost of each arc.
+    # [START arc_cost]
     def distance_callback(from_index, to_index):
         """Returns the manhattan distance between the two nodes."""
         # Convert from routing variable Index to distance matrix NodeIndex.
@@ -136,8 +164,10 @@ def main():
 
     transit_callback_index = routing.RegisterTransitCallback(distance_callback)
     routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
+    # [END arc_cost]
 
     # Add Distance constraint.
+    # [START distance_constraint]
     dimension_name = 'Distance'
     routing.AddDimension(
         transit_callback_index,
@@ -147,8 +177,10 @@ def main():
         dimension_name)
     distance_dimension = routing.GetDimensionOrDie(dimension_name)
     distance_dimension.SetGlobalSpanCostCoefficient(100)
+    # [END distance_constraint]
 
     # Define Transportation Requests.
+    # [START pickup_delivery_constraint]
     for request in data['pickups_deliveries']:
         pickup_index = manager.NodeToIndex(request[0])
         delivery_index = manager.NodeToIndex(request[1])
@@ -159,19 +191,27 @@ def main():
         routing.solver().Add(
             distance_dimension.CumulVar(pickup_index) <=
             distance_dimension.CumulVar(delivery_index))
+    # [END pickup_delivery_constraint]
 
     # Setting first solution heuristic.
+    # [START parameters]
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = (
         routing_enums_pb2.FirstSolutionStrategy.PARALLEL_CHEAPEST_INSERTION)
+    # [END parameters]
 
     # Solve the problem.
+    # [START solve]
     solution = routing.SolveWithParameters(search_parameters)
+    # [END solve]
 
     # Print solution on console.
+    # [START print_solution]
     if solution:
         print_solution(data, manager, routing, solution)
+    # [END print_solution]
 
 
 if __name__ == '__main__':
     main()
+# [END program]

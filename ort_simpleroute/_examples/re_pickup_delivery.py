@@ -1,4 +1,4 @@
-from . import pickup_delivery as original
+from ort_simpleroute._examples.original import vrp_pickup_delivery as original
 from .. import _ortools_helpers as hlp
 
 

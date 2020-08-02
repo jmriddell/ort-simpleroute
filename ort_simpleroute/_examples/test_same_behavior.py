@@ -1,15 +1,9 @@
+import sys
+from io import StringIO
 from unittest import TestCase
 
-from ort_simpleroute._examples import (
-    re_capacity_constraint,
-    pickup_delivery,
-    re_pickup_delivery,
-)
-
-from ort_simpleroute._examples.original import vrp_capacity as capacity_constraint
-
-from io import StringIO
-import sys
+from ort_simpleroute._examples import re_capacity_constraint, re_pickup_delivery
+from ort_simpleroute._examples.original import vrp_capacity, vrp_pickup_delivery
 
 
 class Capturing(list):
@@ -32,11 +26,11 @@ def capture_lines(function):
 
 class CompareOutputsTestCase(TestCase):
     def test_capacity_constraint(self):
-        or_lines = capture_lines(capacity_constraint.main)
+        or_lines = capture_lines(vrp_capacity.main)
         re_lines = capture_lines(re_capacity_constraint.main)
         self.assertEqual(or_lines, re_lines)
 
-    def test_pickup_delivery(self):
-        or_lines = capture_lines(pickup_delivery.main)
+    def test_vrp_pickup_delivery(self):
+        or_lines = capture_lines(vrp_pickup_delivery.main)
         re_lines = capture_lines(re_pickup_delivery.main)
         self.assertEqual(or_lines, re_lines)
