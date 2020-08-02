@@ -1,5 +1,5 @@
-from . import capacity_constraint as original
-from .. import _ortools_helpers as hlp
+from ort_simpleroute._examples.original import vrp_capacity as original
+from ort_simpleroute import _ortools_helpers as hlp
 
 
 def main():

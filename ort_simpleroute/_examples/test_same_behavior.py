@@ -1,11 +1,12 @@
 from unittest import TestCase
 
 from ort_simpleroute._examples import (
-    capacity_constraint,
     re_capacity_constraint,
     pickup_delivery,
     re_pickup_delivery,
 )
+
+from ort_simpleroute._examples.original import vrp_capacity as capacity_constraint
 
 from io import StringIO
 import sys
