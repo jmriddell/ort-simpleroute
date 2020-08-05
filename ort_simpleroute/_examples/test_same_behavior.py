@@ -27,7 +27,7 @@ class CompareOutputsTestCase(TestCase):
 
 def compare_outputs(test_case: TestCase, callable_0, callable_1):
     """
-    Verify that the output of two functions is the same.
+    Verify that the outputs of two functions are the same.
 
     This is intended to be used as a method of a TestCase subclass.
     """
