@@ -34,13 +34,13 @@ def _import_examples_main(examples_pkg, original_sub, redone_sub, example_names)
     return (original_mains, redone_mains)
 
 
-examples_pkg = "ort_simpleroute._examples"
-original_sub = "original"
-redone_sub = "redone"
-example_names = ["vrp_capacity", "vrp_pickup_delivery"]
+EXAMPLES_PKG = "ort_simpleroute._examples"
+ORIGINAL_SUB = "original"
+REDONE_SUB = "redone"
+EXAMPLE_NAMES = ["vrp_capacity", "vrp_pickup_delivery"]
 
-original_mains, redone_mains = _import_examples_main(
-    examples_pkg, original_sub, redone_sub, example_names
+ORIGINAL_MAINS, REDONE_MAINS = _import_examples_main(
+    EXAMPLES_PKG, ORIGINAL_SUB, REDONE_SUB, EXAMPLE_NAMES
 )
 
 
@@ -60,7 +60,7 @@ class CompareOutputsTestCase(TestCase):
 
 
 for name, original_main, redone_main in zip(
-    example_names, original_mains, redone_mains
+    EXAMPLE_NAMES, ORIGINAL_MAINS, REDONE_MAINS
 ):
     method = partialmethod(
         compare_outputs, callable_0=original_main, callable_1=redone_main
