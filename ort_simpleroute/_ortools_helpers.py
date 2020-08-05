@@ -30,7 +30,7 @@ _add_dimension_error = RuntimeError(
 
 
 class RouteOptimizer:
-    """Class to group the routing manager and model, and functions with side effects."""
+    """Enclose the routing manager, model, and functions that alter their state."""
 
     def __init__(self, num_nodes: int, num_vehicles: int = 1, depot: int = 0):
         self.manager: Manager = pywrapcp.RoutingIndexManager(
