@@ -15,7 +15,7 @@ EXAMPLES_PKG = "ort_simpleroute._examples"
 ORIGINAL_SUB = "original"
 REDONE_SUB = "redone"
 # The examples to import
-EXAMPLE_NAMES = ["vrp_capacity", "vrp_pickup_delivery"]
+EXAMPLE_NAMES = ["vrp_capacity", "vrp_pickup_delivery", "vrp_drop_nodes"]
 
 ORIGINAL_MAINS, REDONE_MAINS = import_examples_main(
     EXAMPLES_PKG, ORIGINAL_SUB, REDONE_SUB, EXAMPLE_NAMES
