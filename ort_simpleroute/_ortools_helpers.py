@@ -49,6 +49,7 @@ class ConvenientModel:
         self._callback_manager = CallbackManager(self.model, self.manager)
 
         self._deliveries_enabled = False
+        self._cumul_dim = None  # Defined to a dimension when deliveries enabled
 
     def set_global_arc_cost(self, distance_callback):
         transit_callback_index = self._callback_manager.callback_to_index(
