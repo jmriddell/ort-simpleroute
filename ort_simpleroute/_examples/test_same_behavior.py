@@ -44,6 +44,10 @@ ORIGINAL_MAINS, REDONE_MAINS = _import_examples_main(
 )
 
 
+class CompareOutputsTestCase(TestCase):
+    """Verify that original and redone examples have same output."""
+
+
 def compare_outputs(test_case: TestCase, callable_0, callable_1):
     """
     Verify that the output of two functions is the same.
@@ -53,10 +57,6 @@ def compare_outputs(test_case: TestCase, callable_0, callable_1):
     c0_lines = capture_lines(callable_0)
     c1_lines = capture_lines(callable_1)
     test_case.assertEqual(c0_lines, c1_lines)
-
-
-class CompareOutputsTestCase(TestCase):
-    """Verify that original and redone examples have same output."""
 
 
 for name, original_main, redone_main in zip(
