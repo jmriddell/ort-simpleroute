@@ -18,7 +18,7 @@ from . import fss_enum as fss
 from ._callback_management import CallbackManager, CallbackTypes
 
 
-def make_search_parameters(fss_enum) -> SearchParameters:
+def _make_search_parameters(fss_enum) -> SearchParameters:
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = fss_enum
     return search_parameters
@@ -99,7 +99,7 @@ class RouteOptimizer:
         raise _add_dimension_error
 
     def solve_using_fss(self, fss_enum):
-        search_parameters = make_search_parameters(fss_enum)
+        search_parameters = _make_search_parameters(fss_enum)
         return self.model.SolveWithParameters(search_parameters)
 
     def optimize_solution(self, initial_solution, time_limit=None, solution_limit=None):
