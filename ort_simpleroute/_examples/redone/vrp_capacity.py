@@ -5,7 +5,7 @@ from ort_simpleroute import _ortools_helpers as hlp
 def main():
     data = original.create_data_model()
 
-    router = hlp.ConvenientModel(
+    router = hlp.RouteOptimizer(
         len(data['distance_matrix']),
         data['num_vehicles'],
         data['depot']

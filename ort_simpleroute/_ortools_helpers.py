@@ -29,7 +29,7 @@ _add_dimension_error = RuntimeError(
 )
 
 
-class ConvenientModel:
+class RouteOptimizer:
     """Class to group the routing manager and model, and functions with side effects."""
 
     def __init__(self, num_nodes: int, num_vehicles: int = 1, depot: int = 0):
@@ -137,7 +137,7 @@ class ConvenientModel:
 
 
 def solution_sequence(
-    rmod: ConvenientModel, solution: Solution
+    rmod: RouteOptimizer, solution: Solution
 ) -> Generator[Node, None, None]:
     index = rmod.model.Start(0)
     while not rmod.model.IsEnd(index):

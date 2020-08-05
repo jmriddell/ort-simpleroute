@@ -8,7 +8,7 @@ def main():
     data = original.create_data_model()
 
     # Create the router.
-    router = hlp.ConvenientModel(
+    router = hlp.RouteOptimizer(
         len(data["distance_matrix"]), data["num_vehicles"], data["depot"]
     )
 
