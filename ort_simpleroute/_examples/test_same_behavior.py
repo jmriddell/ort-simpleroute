@@ -10,9 +10,11 @@ from ort_simpleroute._examples._capture_output import capture_lines
 from ort_simpleroute._examples._examples_importer import import_examples_main
 
 
+# The paths where the importer has to find the examples
 EXAMPLES_PKG = "ort_simpleroute._examples"
 ORIGINAL_SUB = "original"
 REDONE_SUB = "redone"
+# The examples to import
 EXAMPLE_NAMES = ["vrp_capacity", "vrp_pickup_delivery"]
 
 ORIGINAL_MAINS, REDONE_MAINS = import_examples_main(
