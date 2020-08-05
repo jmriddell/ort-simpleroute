@@ -19,6 +19,8 @@ ORIGINAL_MAINS, REDONE_MAINS = import_examples_main(
     EXAMPLES_PKG, ORIGINAL_SUB, REDONE_SUB, EXAMPLE_NAMES
 )
 
+TEST_CASES_DATA = zip(EXAMPLE_NAMES, ORIGINAL_MAINS, REDONE_MAINS)
+
 
 # Make empty TestCase class and add test methods programatically.
 class CompareOutputsTestCase(TestCase):
@@ -37,9 +39,7 @@ def compare_outputs(test_case: TestCase, callable_0, callable_1):
 
 
 # Add test methods programatically to CompareOutputsTestCase.
-for name, original_main, redone_main in zip(
-    EXAMPLE_NAMES, ORIGINAL_MAINS, REDONE_MAINS
-):
+for name, original_main, redone_main in TEST_CASES_DATA:
     # Make method
     method = partialmethod(
         compare_outputs, callable_0=original_main, callable_1=redone_main
