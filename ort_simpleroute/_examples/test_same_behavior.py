@@ -1,3 +1,9 @@
+"""
+Veryfy same behavior of original and redone examples.
+
+Test if the redone examples using this library has the same behavior of the original
+examples from ortools by comparing the outputs of the functions.
+"""
 from unittest import TestCase
 from importlib import import_module
 from functools import partial, partialmethod
@@ -10,7 +16,14 @@ def _import_multiple_main(package_name, module_names):
     return list(map(lambda x: x.main, modules))
 
 
-def import_examples_main(examples_pkg, original_sub, redone_sub, example_names):
+def _import_examples_main(examples_pkg, original_sub, redone_sub, example_names):
+    """
+    Import the main() function of sereral original and redone example modules.
+
+    The main() functions are returned in two lists that contain the original main()s
+    and the redone main()s respectively, and in the same order as the example_names
+    were given.
+    """
     package_names = tuple(
         map(lambda x: ".".join([examples_pkg, x]), [original_sub, redone_sub])
     )
@@ -26,19 +39,24 @@ original_sub = "original"
 redone_sub = "redone"
 example_names = ["vrp_capacity", "vrp_pickup_delivery"]
 
-original_mains, redone_mains = import_examples_main(
+original_mains, redone_mains = _import_examples_main(
     examples_pkg, original_sub, redone_sub, example_names
 )
 
 
-def compare_outputs(test_case, callable_0, callable_1):
+def compare_outputs(test_case: TestCase, callable_0, callable_1):
+    """
+    Verify that the output of two functions is the same.
+
+    This is intended to be used as a method of a TestCase subclass.
+    """
     c0_lines = capture_lines(callable_0)
     c1_lines = capture_lines(callable_1)
     test_case.assertEqual(c0_lines, c1_lines)
 
 
 class CompareOutputsTestCase(TestCase):
-    pass
+    """Verify that original and redone examples have same output."""
 
 
 for name, original_main, redone_main in zip(
