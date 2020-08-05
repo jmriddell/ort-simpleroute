@@ -18,18 +18,10 @@ from . import fss_enum as fss
 from ._callback_management import CallbackManager, CallbackTypes
 
 
-# Search Parameters
-# ----- start
-
-# GLOBAL_CHEAPEST_ARC
-# PATH_CHEAPEST_ARC
 def make_search_parameters(fss_enum) -> SearchParameters:
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = fss_enum
     return search_parameters
-
-
-# ----- end
 
 
 _add_dimension_error = RuntimeError(
