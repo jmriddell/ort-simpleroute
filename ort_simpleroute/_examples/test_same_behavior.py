@@ -20,6 +20,7 @@ ORIGINAL_MAINS, REDONE_MAINS = import_examples_main(
 )
 
 
+# Make empty TestCase class and add test methods programatically.
 class CompareOutputsTestCase(TestCase):
     """Verify that original and redone examples have same output."""
 
@@ -35,10 +36,13 @@ def compare_outputs(test_case: TestCase, callable_0, callable_1):
     test_case.assertEqual(c0_lines, c1_lines)
 
 
+# Add test methods programatically to CompareOutputsTestCase.
 for name, original_main, redone_main in zip(
     EXAMPLE_NAMES, ORIGINAL_MAINS, REDONE_MAINS
 ):
+    # Make method
     method = partialmethod(
         compare_outputs, callable_0=original_main, callable_1=redone_main
     )
+    # Add method
     setattr(CompareOutputsTestCase, "test_" + name, method)
