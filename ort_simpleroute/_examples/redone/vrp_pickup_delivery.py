@@ -39,12 +39,6 @@ def main():
     if solution:
         original.print_solution(data, router.manager, router.model, solution)
 
-    # solution = router.optimize_solution(solution)
-
-    # print("Second Solution")
-    # if solution:
-    #     original.print_solution(data, router.manager, router.model, solution)
-
 
 if __name__ == "__main__":
     print("\n\nOriginal\n")
