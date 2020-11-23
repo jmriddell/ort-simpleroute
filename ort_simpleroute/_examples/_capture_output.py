@@ -16,7 +16,7 @@ class _Capturing(list):
 
 
 def capture_lines(function):
-    """Capture output of function and return as a list of lines."""
+    """Capture output of function and return it as a list of lines."""
     with _Capturing() as output:
         function()
     return output
