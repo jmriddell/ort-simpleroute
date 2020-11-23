@@ -32,8 +32,7 @@ def main():
     for request in data['pickups_deliveries']:
         router.add_delivery_request(request[0], request[1])
 
-    # Setting first solution heuristic.
-    # Solve the problem.
+    # Solve the problem using PARALLEL_CHEAPEST_INSERTION first solution heuristic.
     solution = router.solve_using_fss(hlp.fss.PARALLEL_CHEAPEST_INSERTION)
 
     if solution:
