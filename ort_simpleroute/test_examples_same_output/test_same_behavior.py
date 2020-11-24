@@ -1,7 +1,7 @@
 """
 Veryfy same behavior of original and redone examples.
 
-Test if the redone examples using this library has the same behavior of the original
+Test if the redone examples using this library have the same behavior of the original
 examples from ortools by comparing the outputs of the functions.
 """
 from unittest import TestCase

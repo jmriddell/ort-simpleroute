@@ -1,7 +1,6 @@
+"""Typing specific for this package."""
 """
-Typing specific for this package.
-
-To copy and paste:
+For copying and pasting:
 from ._typing import (
     Manager,
     Model,
