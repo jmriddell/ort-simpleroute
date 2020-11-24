@@ -6,12 +6,14 @@ examples from ortools by comparing the outputs of the functions.
 """
 from unittest import TestCase
 from functools import partialmethod
-from ort_simpleroute._examples._capture_output import capture_lines
-from ort_simpleroute._examples._examples_importer import import_examples_main
+from ort_simpleroute.test_examples_same_output._capture_output import capture_lines
+from ort_simpleroute.test_examples_same_output._examples_importer import (
+    import_examples_main,
+)
 
 
 # The paths where the importer has to find the examples
-EXAMPLES_PKG = "ort_simpleroute._examples"
+EXAMPLES_PKG = "ort_simpleroute.test_examples_same_output._examples"
 ORIGINAL_SUB = "original"
 REDONE_SUB = "redone"
 # The examples to import

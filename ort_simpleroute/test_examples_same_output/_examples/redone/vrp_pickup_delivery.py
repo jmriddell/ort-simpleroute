@@ -1,4 +1,6 @@
-from ort_simpleroute._examples.original import vrp_pickup_delivery as original
+from ort_simpleroute.test_examples_same_output._examples.original import (
+    vrp_pickup_delivery as original,
+)
 from ort_simpleroute import _ortools_helpers as hlp
 
 
@@ -24,12 +26,12 @@ def main():
     distance_dimension = router.add_dimension(
         distance_callback,
         3000,  # vehicle maximum travel distance
-        'Distance'  # Dimension Name
+        "Distance",  # Dimension Name
     )
     distance_dimension.SetGlobalSpanCostCoefficient(100)
 
     # Define Transportation Requests.
-    for request in data['pickups_deliveries']:
+    for request in data["pickups_deliveries"]:
         router.add_delivery_request(request[0], request[1])
 
     # Solve the problem using PARALLEL_CHEAPEST_INSERTION first solution heuristic.
