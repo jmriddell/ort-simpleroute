@@ -1,7 +1,7 @@
 from ort_simpleroute.test_examples_same_output._examples.original import (
     vrp_drop_nodes as original,
 )
-from ort_simpleroute import _ortools_helpers as hlp
+import ort_simpleroute as hlp
 
 
 def main():

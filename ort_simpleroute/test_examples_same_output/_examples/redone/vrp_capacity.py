@@ -1,7 +1,7 @@
 from ort_simpleroute.test_examples_same_output._examples.original import (
     vrp_capacity as original,
 )
-from ort_simpleroute import _ortools_helpers as hlp
+import ort_simpleroute as hlp
 
 
 def main():
