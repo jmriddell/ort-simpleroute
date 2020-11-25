@@ -48,7 +48,7 @@ def distance_callback(from_node, to_node):
 To use a callback for retrieving values to the solver, the callback has to be registered, in the registration process a index is assigned to that callback, only then the callback can be assigned to a task in the solver, using its index.
 
 ```python
-distance_callback_index = routing.RegisterTransitCallback(index_distance_callback)
+distance_callback_index = routing_model.RegisterTransitCallback(index_distance_callback)
 routing_model.SetArcCostEvaluatorOfAllVehicles(distance_callback_index)
 ```
 
