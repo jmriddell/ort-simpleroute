@@ -24,8 +24,8 @@ routing_model = pywrapcp.RoutingModel(index_manager)
 
 # A callback for providing distances have to be in terms of internal indexes
 def index_distance_callback(from_index, to_index):
-    from_node = manager.IndexToNode(from_index)
-    to_node = manager.IndexToNode(to_index)
+    from_node = index_manager.IndexToNode(from_index)
+    to_node = index_manager.IndexToNode(to_index)
     return distance_matrix[from_node][to_node]
 ```
 
