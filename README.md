@@ -6,7 +6,7 @@ A wrapper around Google's python library [ORTools](https://github.com/google/or-
 
 `ortools` routing solver exposes internal mechanics regarding node and callback management.
 
-The goal of this package is to make a simpler interface, but focusing on keeping all the flexibility and functionality possible from the original library.
+The goal of this package is to make a simpler interface, but focusing on keeping all the flexibility and functionality as possible from the original library.
 
 ## Differences from ORTools
 
